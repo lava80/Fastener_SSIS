@@ -1,0 +1,1154 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/19/2017 11:36:08 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="VRNB022"
+  DTS:CreatorName="METIT\roberto.lavarini"
+  DTS:DTSID="{8EE93406-FF6C-4AE7-A365-3E5FBF385553}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="1040"
+  DTS:ObjectName="Sync_Capex_fromSBO"
+  DTS:PackageType="5"
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{64812010-738F-4E9A-96D1-118181D80C68}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Attività Flusso di dati"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Attività Flusso di dati"
+      DTS:DTSID="{C891011F-4775-4ED1-9B6F-BAAAE89955D1}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Attività Flusso di dati"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Attività Flusso di dati\Check Active"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Suddivisione condizionale;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tutti i diritti sono riservati; http://www.microsoft.com/sql/support;0"
+              description="Indirizza righe di dati a output diversi a seconda del contenuto dei dati. Utilizzare le condizioni (espressioni SSIS) per specificare le righe da indirizzare. Ad esempio, separare i record da eliminare da quelli pronti per essere caricati oppure indirizzare unicamente un subset di record."
+              name="Check Active"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Attività Flusso di dati\Check Active.Inputs[Input suddivisione condizionale]"
+                  description="Input della trasformazione Suddivisione condizionale"
+                  name="Input suddivisione condizionale">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Attività Flusso di dati\Check Active.Inputs[Input suddivisione condizionale].Columns[Active]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="Active"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[Active]" />
+                    <inputColumn
+                      refId="Package\Attività Flusso di dati\Check Active.Inputs[Input suddivisione condizionale].Columns[ActiveOLD]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ActiveOLD"
+                      lineageId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output corrispondenza ricerca].Columns[ActiveOLD]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Attività Flusso di dati\Check Active.Outputs[Equal]"
+                  description="Output 1 della trasformazione Suddivisione condizionale"
+                  errorOrTruncationOperation="Calcolo"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Equal"
+                  synchronousInputId="Package\Attività Flusso di dati\Check Active.Inputs[Input suddivisione condizionale]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifica l'espressione. Questa versione dell'espressione utilizza gli identificatori di derivazione anziché i nomi di colonna."
+                      name="Expression">#{Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[Active]} == #{Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output corrispondenza ricerca].Columns[ActiveOLD]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifica la versione descrittiva dell'espressione. Questa versione dell'espressione utilizza i nomi di colonna."
+                      expressionType="Notify"
+                      name="FriendlyExpression">Active == ActiveOLD</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifica la posizione della condizione nell'elenco delle condizioni valutate dalla trasformazione. L'ordine di valutazione è crescente, dal valore più basso al più alto."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Attività Flusso di dati\Check Active.Outputs[Not Equal]"
+                  description="Output predefinito per la trasformazione Suddivisione condizionale"
+                  exclusionGroup="1"
+                  name="Not Equal"
+                  synchronousInputId="Package\Attività Flusso di dati\Check Active.Inputs[Input suddivisione condizionale]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Attività Flusso di dati\Check Active.Outputs[Output errori suddivisione condizionale]"
+                  description="Output degli errori per la trasformazione Suddivisione condizionale"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Output errori suddivisione condizionale"
+                  synchronousInputId="Package\Attività Flusso di dati\Check Active.Inputs[Input suddivisione condizionale]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Check Active.Outputs[Output errori suddivisione condizionale].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Attività Flusso di dati\Check Active.Outputs[Output errori suddivisione condizionale].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Check Active.Outputs[Output errori suddivisione condizionale].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Attività Flusso di dati\Check Active.Outputs[Output errori suddivisione condizionale].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Attività Flusso di dati\Insert New Capex"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destinazione OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tutti i diritti sono riservati; http://www.microsoft.com/sql/support;4"
+              description="Destinazione OLE DB"
+              name="Insert New Capex"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Numero di secondi prima del timeout di un comando. Il valore 0 indica nessun timeout."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifica il nome dell'oggetto di database utilizzato per aprire un set di righe."
+                  name="OpenRowset">[dbo].[Man_Ana_Capex]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifica la variabile contenente il nome dell'oggetto di database utilizzato per aprire un set di righe."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL da eseguire."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifica la tabella codici della colonna da utilizzare quando l'origine dati non rende disponibili informazioni sulla tabella codici."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forza l'utilizzo del valore della proprietà DefaultCodePage per la descrizione di dati di tipo carattere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifica la modalità utilizzata per accedere al database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se i valori specificati per le colonne Identity verranno copiati nella destinazione. Se false, i valori delle colonne Identity verranno generati automaticamente nella destinazione. Applicabile solo se è abilitato il caricamento rapido."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se per le colonne con valori Null, tali valori verranno inseriti nella destinazione. Se false, per le colonne con valori Null verranno inseriti i valori predefiniti corrispondenti nella destinazione. Applicabile solo se è attivato il caricamento rapido."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifica le opzioni da utilizzare con il caricamento rapido. Applicabile solo se è attivato il caricamento rapido."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifica se vengono eseguiti commit durante l'inserimento dei dati. Il valore 0 indica che verrà eseguito un solo commit al termine dell'inserimento dei dati. Applicabile solo se è attivato il caricamento rapido."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Attività Flusso di dati\Insert New Capex.Connections[OleDbConnection]"
+                  connectionManagerID="{82D6F93A-F47E-4115-AEED-5CA1E4518164}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[vrmss01.DBMaintenance 1]"
+                  description="Connessione di run-time OLE DB utilizzata per accedere al database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB]"
+                  errorOrTruncationOperation="Inserimento"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Input destinazione OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB].Columns[PrjCode]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="PrjCode"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB].ExternalColumns[PrjCode]"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[PrjCode]" />
+                    <inputColumn
+                      refId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB].Columns[PrjName]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="PrjName"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB].ExternalColumns[PrjName]"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[PrjName]" />
+                    <inputColumn
+                      refId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB].Columns[Active]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="Active"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB].ExternalColumns[Active]"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[Active]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB].ExternalColumns[PrjCode]"
+                      dataType="wstr"
+                      length="20"
+                      name="PrjCode" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB].ExternalColumns[PrjName]"
+                      dataType="wstr"
+                      length="100"
+                      name="PrjName" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB].ExternalColumns[Active]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Active" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Attività Flusso di dati\Insert New Capex.Outputs[Output errori destinazione OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Output errori destinazione OLE DB"
+                  synchronousInputId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Insert New Capex.Outputs[Output errori destinazione OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Attività Flusso di dati\Insert New Capex.Outputs[Output errori destinazione OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Insert New Capex.Outputs[Output errori destinazione OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Attività Flusso di dati\Insert New Capex.Outputs[Output errori destinazione OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Attività Flusso di dati\Origine SBO"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origine OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tutti i diritti sono riservati; http://www.microsoft.com/sql/support;7"
+              description="Origine OLE DB"
+              name="Origine SBO"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Numero di secondi prima del timeout di un comando. Il valore 0 indica nessun timeout."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifica il nome dell'oggetto di database utilizzato per aprire un set di righe."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifica la variabile contenente il nome dell'oggetto di database utilizzato per aprire un set di righe."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL da eseguire."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from sbo_fv_live.dbo.oprj where U_t_capex = 'Y'</property>
+                <property
+                  dataType="System.String"
+                  description="Variabile che contiene il comando SQL da eseguire."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifica la tabella codici della colonna da utilizzare quando l'origine dati non rende disponibili informazioni sulla tabella codici."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forza l'utilizzo del valore della proprietà DefaultCodePage per la descrizione di dati di tipo carattere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifica la modalità utilizzata per accedere al database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Mapping tra i parametri nel comando SQL e le variabili."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Attività Flusso di dati\Origine SBO.Connections[OleDbConnection]"
+                  connectionManagerID="{F5709407-93FB-4BEB-910E-F9B70517CB99}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[GEFINMSS01.SBO_MT_LIVE]"
+                  description="Connessione di run-time OLE DB utilizzata per accedere al database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB]"
+                  name="Output origine OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[PrjCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[PrjCode]"
+                      length="20"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[PrjCode]"
+                      name="PrjCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[PrjName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[PrjName]"
+                      length="100"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[PrjName]"
+                      name="PrjName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[Locked]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[Locked]"
+                      length="1"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[Locked]"
+                      name="Locked"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[DataSource]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[DataSource]"
+                      length="1"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[DataSource]"
+                      name="DataSource"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[UserSign]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[UserSign]"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[UserSign]"
+                      name="UserSign"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[ValidFrom]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[ValidFrom]"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[ValidFrom]"
+                      name="ValidFrom"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[ValidTo]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[ValidTo]"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[ValidTo]"
+                      name="ValidTo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[Active]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[Active]"
+                      length="1"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[Active]"
+                      name="Active"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[LogInstanc]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[LogInstanc]"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[LogInstanc]"
+                      name="LogInstanc"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[UserSign2]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[UserSign2]"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[UserSign2]"
+                      name="UserSign2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[UpdateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[UpdateDate]"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[UpdateDate]"
+                      name="UpdateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[U_V_CLASPROG]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[U_V_CLASPROG]"
+                      length="50"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[U_V_CLASPROG]"
+                      name="U_V_CLASPROG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[U_T_CAPEX]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversione"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[U_T_CAPEX]"
+                      length="10"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[U_T_CAPEX]"
+                      name="U_T_CAPEX"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[PrjCode]"
+                      dataType="wstr"
+                      length="20"
+                      name="PrjCode" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[PrjName]"
+                      dataType="wstr"
+                      length="100"
+                      name="PrjName" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[Locked]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Locked" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[DataSource]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="DataSource" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[UserSign]"
+                      dataType="i2"
+                      name="UserSign" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[ValidFrom]"
+                      dataType="dbTimeStamp"
+                      name="ValidFrom" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[ValidTo]"
+                      dataType="dbTimeStamp"
+                      name="ValidTo" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[Active]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Active" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[LogInstanc]"
+                      dataType="i4"
+                      name="LogInstanc" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[UserSign2]"
+                      dataType="i2"
+                      name="UserSign2" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[UpdateDate]"
+                      dataType="dbTimeStamp"
+                      name="UpdateDate" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[U_V_CLASPROG]"
+                      dataType="wstr"
+                      length="50"
+                      name="U_V_CLASPROG" />
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].ExternalColumns[U_T_CAPEX]"
+                      dataType="wstr"
+                      length="10"
+                      name="U_T_CAPEX" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB]"
+                  isErrorOut="true"
+                  name="Output errori origine OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[PrjCode]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[PrjCode]"
+                      name="PrjCode" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[PrjName]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[PrjName]"
+                      name="PrjName" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[Locked]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[Locked]"
+                      name="Locked" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[DataSource]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[DataSource]"
+                      name="DataSource" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[UserSign]"
+                      dataType="i2"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[UserSign]"
+                      name="UserSign" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[ValidFrom]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[ValidFrom]"
+                      name="ValidFrom" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[ValidTo]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[ValidTo]"
+                      name="ValidTo" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[Active]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[Active]"
+                      name="Active" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[LogInstanc]"
+                      dataType="i4"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[LogInstanc]"
+                      name="LogInstanc" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[UserSign2]"
+                      dataType="i2"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[UserSign2]"
+                      name="UserSign2" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[UpdateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[UpdateDate]"
+                      name="UpdateDate" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[U_V_CLASPROG]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[U_V_CLASPROG]"
+                      name="U_V_CLASPROG" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[U_T_CAPEX]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[U_T_CAPEX]"
+                      name="U_T_CAPEX" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output errori origine OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Attività Flusso di dati\Ricerca Esistenti"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Ricerca;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tutti i diritti sono riservati; http://www.microsoft.com/sql/support;6"
+              description="Crea un join delle colonne aggiuntive al flusso di dati cercando valori in una tabella. Ad esempio, creare un join  della colonna 'employee id' alla tabella dei dipendenti per ottenere data di assunzione e nome del dipendente. Questa trasformazione è consigliata quando la memoria disponibile è sufficiente per la tabella di ricerca."
+              name="Ricerca Esistenti"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifica l'istruzione SQL che genera la tabella di ricerca."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Man_Ana_Capex]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifica un'istruzione SQL che utilizza parametri per generare la tabella di ricerca."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Man_Ana_Capex]) [refTable]
+where [refTable].[PrjCode] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifica il tipo di connessione utilizzata per accedere al set di dati di riferimento."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifica il tipo di cache della tabella di ricerca."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifica il modo in cui la trasformazione Ricerca gestisce le righe senza voci corrispondenti nel set di dati di riferimento."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifica la percentuale della cache allocata per le righe senza voci corrispondenti nel set di dati di riferimento."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilizzo massimo della memoria per la cache dei riferimenti in una piattaforma a 32 bit."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilizzo massimo della memoria per la cache dei riferimenti in una piattaforma a 64 bit."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica se fare riferimento ai metadati in un formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PrjCode" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PrjName" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Active" dataType="DT_STR" length="1" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifica l'elenco di identificatori di derivazione corrispondenti ai parametri utilizzati dall'istruzione SQL nella proprietà SQLCommand. Le voci nell'elenco sono separate da punti e virgola."
+                  name="ParameterMap">#{Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[PrjCode]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifica la tabella codici della colonna da utilizzare quando l'origine dati non rende disponibili informazioni sulla tabella codici."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina se le chiavi duplicate nei dati di riferimento devono essere considerate come errori in caso di utilizzo della modalità di Full cache."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Attività Flusso di dati\Ricerca Esistenti.Connections[OleDbConnection]"
+                  connectionManagerID="{82D6F93A-F47E-4115-AEED-5CA1E4518164}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[vrmss01.DBMaintenance 1]"
+                  description="Gestione connessione utilizzata per accedere ai dati di ricerca."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Attività Flusso di dati\Ricerca Esistenti.Inputs[Input ricerca]"
+                  name="Input ricerca">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Attività Flusso di dati\Ricerca Esistenti.Inputs[Input ricerca].Columns[PrjCode]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="PrjCode"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[PrjCode]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifica la colonna nella tabella di riferimento a cui viene unita in join una colonna."
+                          name="JoinToReferenceColumn">PrjCode</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifica la colonna nella tabella di riferimento da cui viene copiata una colonna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output corrispondenza ricerca]"
+                  errorOrTruncationOperation="Ricerca"
+                  exclusionGroup="1"
+                  name="Output corrispondenza ricerca"
+                  synchronousInputId="Package\Attività Flusso di dati\Ricerca Esistenti.Inputs[Input ricerca]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output corrispondenza ricerca].Columns[ActiveOLD]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copia colonna"
+                      length="1"
+                      lineageId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output corrispondenza ricerca].Columns[ActiveOLD]"
+                      name="ActiveOLD"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifica la colonna nella tabella di riferimento da cui viene copiata una colonna."
+                          name="CopyFromReferenceColumn">Active</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output nessuna corrispondenza ricerca]"
+                  description="Output ricerca che gestisce le righe senza voci corrispondenti nel set di dati di riferimento. Utilizzare questo output quando la proprietà NoMatchBehavior è impostata su &quot;Invia le righe senza voci corrispondenti all'output nessuna corrispondenza&quot;."
+                  exclusionGroup="1"
+                  name="Output nessuna corrispondenza ricerca"
+                  synchronousInputId="Package\Attività Flusso di dati\Ricerca Esistenti.Inputs[Input ricerca]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output errori ricerca]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Output errori ricerca"
+                  synchronousInputId="Package\Attività Flusso di dati\Ricerca Esistenti.Inputs[Input ricerca]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output errori ricerca].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output errori ricerca].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output errori ricerca].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output errori ricerca].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Attività Flusso di dati\Update Item"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="Comando OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tutti i diritti sono riservati; http://www.microsoft.com/sql/support;2"
+              description="Esegue un'istruzione SQL per ogni riga di un flusso di dati. Ad esempio, chiamare una stored procedure 'new employee setup' per ogni riga della tabella 'new employees'. Nota: l'esecuzione di un'istruzione SQL per ogni riga di un flusso di dati di grandi dimensioni può richiedere molto tempo."
+              name="Update Item"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Numero di secondi prima del timeout di un comando. Il valore 0 indica nessun timeout."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL da eseguire."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">update [Man_Ana_Capex]
+set Active = ?
+where [PrjCode] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifica la tabella codici della colonna da utilizzare quando l'origine dati non rende disponibili informazioni sulla tabella codici."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Attività Flusso di dati\Update Item.Connections[OleDbConnection]"
+                  connectionManagerID="{82D6F93A-F47E-4115-AEED-5CA1E4518164}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[vrmss01.DBMaintenance 1]"
+                  description="Connessione di run-time OLE DB utilizzata per accedere al database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Attività Flusso di dati\Update Item.Inputs[Input comando OLE DB]"
+                  errorOrTruncationOperation="Esecuzione comando"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Input comando OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Attività Flusso di dati\Update Item.Inputs[Input comando OLE DB].Columns[PrjCode]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="PrjCode"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Update Item.Inputs[Input comando OLE DB].ExternalColumns[Param_1]"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[PrjCode]" />
+                    <inputColumn
+                      refId="Package\Attività Flusso di dati\Update Item.Inputs[Input comando OLE DB].Columns[Active]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="Active"
+                      externalMetadataColumnId="Package\Attività Flusso di dati\Update Item.Inputs[Input comando OLE DB].ExternalColumns[Param_0]"
+                      lineageId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB].Columns[Active]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Update Item.Inputs[Input comando OLE DB].ExternalColumns[Param_0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informazioni sui parametri. Corrisponde ai valori DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Attività Flusso di dati\Update Item.Inputs[Input comando OLE DB].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informazioni sui parametri. Corrisponde ai valori DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Attività Flusso di dati\Update Item.Outputs[Output comando OLE DB]"
+                  exclusionGroup="1"
+                  name="Output comando OLE DB"
+                  synchronousInputId="Package\Attività Flusso di dati\Update Item.Inputs[Input comando OLE DB]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Attività Flusso di dati\Update Item.Outputs[Output errori comando OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Output errori comando OLE DB"
+                  synchronousInputId="Package\Attività Flusso di dati\Update Item.Inputs[Input comando OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Update Item.Outputs[Output errori comando OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Attività Flusso di dati\Update Item.Outputs[Output errori comando OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Attività Flusso di dati\Update Item.Outputs[Output errori comando OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Attività Flusso di dati\Update Item.Outputs[Output errori comando OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Attività Flusso di dati.Paths[Not Equal]"
+              endId="Package\Attività Flusso di dati\Update Item.Inputs[Input comando OLE DB]"
+              name="Not Equal"
+              startId="Package\Attività Flusso di dati\Check Active.Outputs[Not Equal]" />
+            <path
+              refId="Package\Attività Flusso di dati.Paths[Output corrispondenza ricerca]"
+              endId="Package\Attività Flusso di dati\Check Active.Inputs[Input suddivisione condizionale]"
+              name="Output corrispondenza ricerca"
+              startId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output corrispondenza ricerca]" />
+            <path
+              refId="Package\Attività Flusso di dati.Paths[Output nessuna corrispondenza ricerca]"
+              endId="Package\Attività Flusso di dati\Insert New Capex.Inputs[Input destinazione OLE DB]"
+              name="Output nessuna corrispondenza ricerca"
+              startId="Package\Attività Flusso di dati\Ricerca Esistenti.Outputs[Output nessuna corrispondenza ricerca]" />
+            <path
+              refId="Package\Attività Flusso di dati.Paths[Output origine OLE DB]"
+              endId="Package\Attività Flusso di dati\Ricerca Esistenti.Inputs[Input ricerca]"
+              name="Output origine OLE DB"
+              startId="Package\Attività Flusso di dati\Origine SBO.Outputs[Output origine OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Attività Flusso di dati"
+          TopLeft="378,111" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Attività Flusso di dati">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="138,42"
+          Id="Package\Attività Flusso di dati\Origine SBO"
+          TopLeft="387,62" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Attività Flusso di dati\Ricerca Esistenti"
+          TopLeft="399,148" />
+        <EdgeLayout
+          Id="Package\Attività Flusso di dati.Paths[Output origine OLE DB]"
+          TopLeft="456,104">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="21.5,44"
+              Start="0,0"
+              End="21.5,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18"
+                    Point2="0,22"
+                    Point3="4,22" />
+                  <mssgle:LineSegment
+                    End="17.5,22" />
+                  <mssgle:CubicBezierSegment
+                    Point1="17.5,22"
+                    Point2="21.5,22"
+                    Point3="21.5,26" />
+                  <mssgle:LineSegment
+                    End="21.5,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Attività Flusso di dati\Insert New Capex"
+          TopLeft="562,258" />
+        <EdgeLayout
+          Id="Package\Attività Flusso di dati.Paths[Output nessuna corrispondenza ricerca]"
+          TopLeft="477.5,190">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="167,68"
+              Start="0,0"
+              End="167,60.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30"
+                    Point2="0,34"
+                    Point3="4,34" />
+                  <mssgle:LineSegment
+                    End="163,34" />
+                  <mssgle:CubicBezierSegment
+                    Point1="163,34"
+                    Point2="167,34"
+                    Point3="167,38" />
+                  <mssgle:LineSegment
+                    End="167,60.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-2.93587890625,39,172.8717578125,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="141,42"
+          Id="Package\Attività Flusso di dati\Check Active"
+          TopLeft="319,236" />
+        <EdgeLayout
+          Id="Package\Attività Flusso di dati.Paths[Output corrispondenza ricerca]"
+          TopLeft="452.666666666667,190">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-63.1666666666667,46"
+              Start="0,0"
+              End="-63.1666666666667,38.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.6784363177806" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.6784363177806"
+                    Point2="0,18.6784363177806"
+                    Point3="-4,18.6784363177806" />
+                  <mssgle:LineSegment
+                    End="-59.1666666666667,18.6784363177806" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-59.1666666666667,18.6784363177806"
+                    Point2="-63.1666666666667,18.6784363177806"
+                    Point3="-63.1666666666667,22.6784363177806" />
+                  <mssgle:LineSegment
+                    End="-63.1666666666667,38.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-98.3692122395833,23.6784363177806,133.5717578125,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="140,42"
+          Id="Package\Attività Flusso di dati\Update Item"
+          TopLeft="326,322" />
+        <EdgeLayout
+          Id="Package\Attività Flusso di dati.Paths[Not Equal]"
+          TopLeft="392.75,278">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-21.70212890625,12.4453125,43.4042578125,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Attività Flusso di dati\Origine SBO">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Attività Flusso di dati\Ricerca Esistenti">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Man_Ana_Capex]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Attività Flusso di dati\Insert New Capex">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
